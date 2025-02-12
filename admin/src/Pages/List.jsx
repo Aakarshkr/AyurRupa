@@ -5,6 +5,8 @@ import { toast } from "react-toastify";
 
 // eslint-disable-next-line react/prop-types
 const List = ({ token }) => {
+  console.log(token);
+  
   const [list, setList] = useState([]);
 
   const fetchList = async () => {
@@ -30,24 +32,27 @@ const List = ({ token }) => {
     fetchList();
   }, [token]);
 
-  const removeProduct = async (id)=>{
+  const removeProduct = async (id) => {
     try {
-      const res = await axios.post( backendURL + '/api/product/remove', {id},{headers: {token}});
+      const res = await axios.delete(`${backendURL}/api/product/remove`, {
+        headers: { token },
+        data: { id }, // Pass id in the request body
+      });
+  
       console.log(res);
-
+  
       if (res.data.success) {
         toast.success(res.data.message);
         fetchList();
-      }else{
-        toast.error(res.data.message)
+      } else {
+        toast.error(res.data.message);
       }
-      
     } catch (error) {
       console.log(error);
-      toast.error(error.message)
-      
+      toast.error(error.message);
     }
-  }
+  };
+  
 
   return (
     <div>

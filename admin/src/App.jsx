@@ -18,15 +18,16 @@ const App = () => {
   return (
     <div className="bg-gray-50 min-h-screen">
       <ToastContainer/>
-      {token === "" ? (
+      {token=== '' ? (
         <Login setToken={setToken} />
       ) : (
         <>
           <Navbar setToken={setToken}/>
 
           <hr />
+         
           <div className="flex w-full ">
-            <SideBar />
+            <SideBar token={token} />
             <div className="w-[70%] mx-auto ml-[max(5vw,25px)] m-8 text-gray-600 text-base">
               <Routes>
                 <Route path="/add" element={<Add token={token}/>} />
@@ -34,6 +35,7 @@ const App = () => {
                 <Route path="/orders" element={<Orders token={token}/>} />
               </Routes>
             </div>
+          
           </div>
         </>
       )}

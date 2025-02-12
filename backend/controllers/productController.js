@@ -56,7 +56,7 @@ const listProducts = async (req,res)=>{
     
 try {
     const  products = await productModel.find({});
-    console.log(products);
+   
     res.json({success:true, products})
     
 } catch (error) {
@@ -70,6 +70,8 @@ try {
 
 //function for removing products
 const removeProducts = async (req,res)=>{
+    console.log(req);
+    
 try {
     await productModel.findByIdAndDelete(req.body.id)
     res.json({success:true,message:"product removed"})
@@ -77,7 +79,6 @@ try {
     console.log(error);
     res.json({success:false,message:error.message})
 }
-
     
 }
 

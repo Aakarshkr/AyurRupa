@@ -44,6 +44,7 @@ const razorPayPlaceOrder = async (req, res) => {};
 const allOrders = async (req, res) => {
   try {
     const orders = await orderModel.find({});
+   
     res.json({ success: true, orders });
   } catch (error) {
     console.log(error);
@@ -67,7 +68,16 @@ const userOrders = async (req, res) => {
 
 //updateOrder status from admin panel
 
-const updateStatus = async (req, res) => {};
+const updateStatus = async (req, res) => {
+  try {
+    const {orderId ,status} = req.body 
+    await orderModel.findByIdAndUpdate(orderId,{status})
+    res.json({success:true , message:"Status Upgraded"})
+  } catch (error) {
+    res.json({ success: false, message: error.message });
+    
+  }
+};
 
 export {
   allOrders,
